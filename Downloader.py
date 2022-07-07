@@ -4,6 +4,7 @@ from tkinter import filedialog
 from turtle import Screen, width
 from pytube import YouTube
 from moviepy.editor import VideoFileClip
+import moviepy.editor as moviepy
 
 
 # Wrinting the backend Functions
@@ -17,11 +18,11 @@ def download_video():
     get_link = link_field.get()
     #Get the selected path of the user
     get_path = path_label.cget('text')
-    screen.title("Downloading...")
+    screen.title("Downloading...") 
     # downloaded video
     mp4_clip = YouTube(get_link).streams.get_highest_resolution().download() 
     vid_clip = VideoFileClip(mp4_clip)
-    vid_clip.close() 
+    vid_clip.close()  
     # move file to the selected directory / path
     shutil.move(mp4_clip, get_path)
     screen.title("Download Completed, Download Another files")
@@ -30,6 +31,7 @@ def download_video():
 screen = Tk()
 title = screen.title("Youtube video downloader")
 canvas = Canvas(screen, width=500, height=500)
+canvas.configure(bg='lightgreen')
 canvas.pack()
 
 # adding image file
@@ -49,8 +51,8 @@ path_label = Label(screen, text = "Select the path",font=('Arial', 12))
 path_btn = Button(screen, text = "Browse", command=select_path)
 
 # adding the selction labels to the window / canvas
-canvas.create_window(250, 280, window=path_label)
-canvas.create_window(340, 280, window=path_btn) 
+canvas.create_window(215, 280, window=path_label)
+canvas.create_window(300, 280, window=path_btn) 
 
 # adding the links to the window / canvas
 canvas.create_window(250, 170, window=link_field)
@@ -59,7 +61,8 @@ canvas.create_window(250, 200, window=link_text, )
 # Download button
 download_btn = Button( screen, text = "Download", command = download_video )
 
+
 # adding the download btn to the canvas
-canvas.create_window(250, 350, window = download_btn)
+canvas.create_window(230, 350, window = download_btn)
 
 screen.mainloop()
